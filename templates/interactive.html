@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script type=text/javascript>
+			$(function() {
+			  $('a#process_input').bind('click', function() {
+				$.getJSON('/background_process', {
+				  message: $('input[name="message"]').val(),
+				}, function(data) {
+				  $("#result").text(data.result);
+				});
+				return false;
+			  });
+			});
+		</script>
+	</head>
+	<body>
+
+		<div class="ml-container">
+		<h3>Welcome! Please use the box below to generate your yelp review!</h3>
+			<form>
+				<input type=text size=5 name=message>
+				<a href=# id=process_input><button class='btn btn-default'>Submit</button></a>
+			</form>
+		<p id=result></p>
+		</div>
+
+	</body>
+</html>
+
+<style>
+input {height:100px;width:500px;font-size:14pt;}
+h1   {color: blue;}
+p    {color: red;}
+</style>

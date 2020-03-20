@@ -8,7 +8,9 @@
 				$.getJSON('/background_process', {
 				  message: $('input[name="message"]').val(),
 				}, function(data) {
-				  $("#result").text(data.result);
+				  $("#result1").text(data.result1);
+				  $("#result2").text(data.result2);
+				  $("#result3").text(data.result3);
 				});
 				return false;
 			  });
@@ -20,17 +22,19 @@
 		<div class="ml-container">
 		<h3>Welcome! Please use the box below to generate your yelp review!</h3>
 			<form>
-				<input type=text size=5 name=message>
+				<input type=text size=5 name=message value = {{prediction}}>
 				<a href=# id=process_input><button class='btn btn-default'>Submit</button></a>
 			</form>
-		<p id=result></p>
+		<p id=result1></p>
+		<p id=result2></p>
+		<p id=result3></p>
 		</div>
 
 	</body>
 </html>
 
 <style>
-input {height:100px;width:500px;font-size:14pt;}
+input {height:50px;width:500px;font-size:14pt;}
 h1   {color: blue;}
-p    {color: red;}
+p    {color: blue;}
 </style>

@@ -6,15 +6,75 @@
 			$(function() {
 			  $('a#process_input').bind('click', function() {
 				$.getJSON('/background_process', {
-				  message: $('input[name="message"]').val(),
+				  message: $('textarea[name="message"]').val(),
 				}, function(data) {
 				  $("#result1").text(data.result1);
+				  var result1 = document.getElementById("result1")
+				  result1.value = data.result1
 				  $("#result2").text(data.result2);
+				  var result2 = document.getElementById("result2")
+				  result2.value = data.result2
 				  $("#result3").text(data.result3);
+				  var result3 = document.getElementById("result3")
+				  result3.value = data.result3
 				});
 				return false;
 			  });
 			});
+			function myFunction() {
+			  var x = document.getElementById("model-output");
+			  if (x.style.display === "none") {
+			    x.style.display = "block";
+			  } else {
+			    x.style.display = "none";
+			  }
+			};
+			function selectOutput1() {
+			  var result = document.getElementById("result1")
+			  var textbox = document.getElementsByName("message")[0];
+			  console.log("Original Value")
+			  console.log(textbox.value)
+			  textbox.value = result.value
+			  console.log("New Value")
+			  console.log(textbox.value)
+			  $("#result1").text('');
+			  $("#result2").text('');
+			  $("#result3").text('');
+			  var x = document.getElementById("model-output");
+			  if (x.style.display === "none") {
+			    x.style.display = "block";
+			  } else {
+			    x.style.display = "none";
+			  }
+			};
+			function selectOutput2() {
+			  var result = document.getElementById("result2")
+			  var textbox = document.getElementsByName("message")[0];
+			  textbox.value = result.value
+			  $("#result1").text('');
+			  $("#result2").text('');
+			  $("#result3").text('');
+			  var x = document.getElementById("model-output");
+			  if (x.style.display === "none") {
+			    x.style.display = "block";
+			  } else {
+			    x.style.display = "none";
+			  }
+			};
+			function selectOutput3() {
+			  var result = document.getElementById("result3")
+			  var textbox = document.getElementsByName("message")[0];
+			  textbox.value = result.value
+			  $("#result1").text('');
+			  $("#result2").text('');
+			  $("#result3").text('');
+			  var x = document.getElementById("model-output");
+			  if (x.style.display === "none") {
+			    x.style.display = "block";
+			  } else {
+			    x.style.display = "none";
+			  }
+			};
 		</script>
 	</head>
 	<body>
@@ -22,19 +82,23 @@
 		<div class="ml-container">
 		<h3>Welcome! Please use the box below to generate your yelp review!</h3>
 			<form>
-				<input type=text size=5 name=message value = {{prediction}}>
-				<a href=# id=process_input><button class='btn btn-default'>Submit</button></a>
+				<textarea class="scrollabletextbox" name="message">
+				</textarea>
+				<a href=# id=process_input><button class='btn btn-default' onclick="myFunction()">Submit</button></a>
 			</form>
-		<p id=result1></p>
-		<p id=result2></p>
-		<p id=result3></p>
+		</div>
+		<div id = 'model-output'>
+		<button id=result1 onclick="selectOutput1()"></button> <br>
+		<button id=result2></button> <br>
+		<button id=result3></button>
 		</div>
 
 	</body>
 </html>
 
 <style>
-input {height:50px;width:500px;font-size:14pt;}
+textarea {height:100px;width:500px;font-size:14pt;}
 h1   {color: blue;}
 p    {color: blue;}
+#model-output {display : none;}
 </style>

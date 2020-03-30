@@ -13,6 +13,10 @@ Bootstrap(app)
 def interactive_input():
 	return render_template('interactive.html')
 
+@app.route('/bootstrap')
+def bootstrap():
+	return render_template('bootstrap.html')
+
 #Reactive function that will enable the code to run 
 @app.route('/background_process')
 def background_process():

@@ -1,116 +1,118 @@
-<!DOCTYPE html>
+{% extends "bootstrap/base.html" %}
 
-<html>
-	<head>
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script type=text/javascript>
-			$(function() {
-			  $('a#process_input').bind('click', function() {
-				$.getJSON('/background_process', {
-				  message: $('textarea[name="message"]').val(),
-				  complexity: $('input[name="slider"]').val(),
-				}, function(data) {
-				  $("#result1").text(data.result1);
-				  var result1 = document.getElementById("result1")
-				  result1.value = data.result1
-				  $("#result2").text(data.result2);
-				  var result2 = document.getElementById("result2")
-				  result2.value = data.result2
-				  $("#result3").text(data.result3);
-				  var result3 = document.getElementById("result3")
-				  result3.value = data.result3
-				});
-				return false;
-			  });
-			});
-			function myFunction() {
-			  var x = document.getElementById("model-output");
-			  if (x.style.display === "none") {
-			    x.style.display = "block";
-			  } else {
-			    x.style.display = "none";
-			  }
-			};
-			function selectOutput1() {
-			  var result = document.getElementById("result1")
-			  var textbox = document.getElementsByName("message")[0];
-			  console.log("Original Value")
-			  console.log(textbox.value)
-			  textbox.value = result.value
-			  console.log("New Value")
-			  console.log(textbox.value)
-			  $("#result1").text('');
-			  $("#result2").text('');
-			  $("#result3").text('');
-			  var x = document.getElementById("model-output");
-			  if (x.style.display === "none") {
-			    x.style.display = "block";
-			  } else {
-			    x.style.display = "none";
-			  }
-			};
-			function selectOutput2() {
-			  var result = document.getElementById("result2")
-			  var textbox = document.getElementsByName("message")[0];
-			  textbox.value = result.value
-			  $("#result1").text('');
-			  $("#result2").text('');
-			  $("#result3").text('');
-			  var x = document.getElementById("model-output");
-			  if (x.style.display === "none") {
-			    x.style.display = "block";
-			  } else {
-			    x.style.display = "none";
-			  }
-			};
-			function selectOutput3() {
-			  var result = document.getElementById("result3")
-			  var textbox = document.getElementsByName("message")[0];
-			  textbox.value = result.value
-			  $("#result1").text('');
-			  $("#result2").text('');
-			  $("#result3").text('');
-			  var x = document.getElementById("model-output");
-			  if (x.style.display === "none") {
-			    x.style.display = "block";
-			  } else {
-			    x.style.display = "none";
-			  }
-			};
-			//To display the value of the slider
-			$(document).on('input', '#myRange', function() {
-			    $('#slider_value').html( $(this).val() );
-			});
+{% block content %}	
+<!--
+<div class="ml-container">
+<h3>Welcome! Please use the box below to generate your yelp review!</h3>
+	<form name="complexity">
+		<p>Please adjust the complexity of the predictive model here: </p>
+	   	<input type="range" id="sliderInput" value="0.7" min="0.1" max="1" oninput="sliderOutput.value = sliderInput.value" step = "0.1" name = "slider">
+	   	<output id="sliderOutput">0.7</output>
+	</form>
+	
+	<form>
+		<p>Please start typing your review here: </p>				
+		<textarea class="scrollabletextbox" name="message"></textarea>
+		<a href=# id=process_input><button class='btn btn-default' onclick="myFunction()">Submit</button></a>
+	</form>
+</div>
+<div id = 'model-output'>
+<button id=result1 onclick="selectOutput1()"></button> <br>
+<button id=result2 onclick="selectOutput2()"></button> <br>
+<button id=result3 onclick="selectOutput3()"></button>
+</div>-->
+{% endblock %}
 
-		</script>
-	</head>
-	<body>
-
-		<div class="ml-container">
-		<h3>Welcome! Please use the box below to generate your yelp review!</h3>
-			<form name="complexity">
-				<p>Please adjust the complexity of the predictive model here: </p>
-			   	<input type="range" id="sliderInput" value="0.7" min="0.1" max="1" oninput="sliderOutput.value = sliderInput.value" step = "0.1" name = "slider">
-			   	<output id="sliderOutput">0.7</output>
-			</form>
-			
-			<form>
-				<p>Please start typing your review here: </p>				
-				<textarea class="scrollabletextbox" name="message"></textarea>
-				<a href=# id=process_input><button class='btn btn-default' onclick="myFunction()">Submit</button></a>
-			</form>
-		</div>
-		<div id = 'model-output'>
-		<button id=result1 onclick="selectOutput1()"></button> <br>
-		<button id=result2 onclick="selectOutput2()"></button> <br>
-		<button id=result3 onclick="selectOutput3()"></button>
-		</div>
-
-	</body>
-</html>
-
+{% block scripts %}
+{{super()}}
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+<!--
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+	$(function() {
+	  $('a#process_input').bind('click', function() {
+		$.getJSON('/background_process', {
+		  message: $('textarea[name="message"]').val(),
+		  complexity: $('input[name="slider"]').val(),
+		}, function(data) {
+		  $("#result1").text(data.result1);
+		  var result1 = document.getElementById("result1")
+		  result1.value = data.result1
+		  $("#result2").text(data.result2);
+		  var result2 = document.getElementById("result2")
+		  result2.value = data.result2
+		  $("#result3").text(data.result3);
+		  var result3 = document.getElementById("result3")
+		  result3.value = data.result3
+		});
+		return false;
+	  });
+	});
+	function myFunction() {
+	  var x = document.getElementById("model-output");
+	  if (x.style.display === "none") {
+	    x.style.display = "block";
+	  } else {
+	    x.style.display = "none";
+	  }
+	};
+	function selectOutput1() {
+	  var result = document.getElementById("result1")
+	  var textbox = document.getElementsByName("message")[0];
+	  console.log("Original Value")
+	  console.log(textbox.value)
+	  textbox.value = result.value
+	  console.log("New Value")
+	  console.log(textbox.value)
+	  $("#result1").text('');
+	  $("#result2").text('');
+	  $("#result3").text('');
+	  var x = document.getElementById("model-output");
+	  if (x.style.display === "none") {
+	    x.style.display = "block";
+	  } else {
+	    x.style.display = "none";
+	  }
+	};
+	function selectOutput2() {
+	  var result = document.getElementById("result2")
+	  var textbox = document.getElementsByName("message")[0];
+	  textbox.value = result.value
+	  $("#result1").text('');
+	  $("#result2").text('');
+	  $("#result3").text('');
+	  var x = document.getElementById("model-output");
+	  if (x.style.display === "none") {
+	    x.style.display = "block";
+	  } else {
+	    x.style.display = "none";
+	  }
+	};
+	function selectOutput3() {
+	  var result = document.getElementById("result3")
+	  var textbox = document.getElementsByName("message")[0];
+	  textbox.value = result.value
+	  $("#result1").text('');
+	  $("#result2").text('');
+	  $("#result3").text('');
+	  var x = document.getElementById("model-output");
+	  if (x.style.display === "none") {
+	    x.style.display = "block";
+	  } else {
+	    x.style.display = "none";
+	  }
+	};
+	//To display the value of the slider
+	$(document).on('input', '#myRange', function() {
+	    $('#slider_value').html( $(this).val() );
+	});-->
+</script>
+{% endblock %}
+<!--
+{% block styles %}
 <style>
 textarea {height:100px;width:500px;font-size:14pt;}
 h1   {color: blue;}
 #model-output {display : none;}
 </style>
+{% endblock %}-->

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 	<head>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -7,6 +8,7 @@
 			  $('a#process_input').bind('click', function() {
 				$.getJSON('/background_process', {
 				  message: $('textarea[name="message"]').val(),
+				  complexity: $('input[name="slider"]').val(),
 				}, function(data) {
 				  $("#result1").text(data.result1);
 				  var result1 = document.getElementById("result1")
@@ -75,22 +77,33 @@
 			    x.style.display = "none";
 			  }
 			};
+			//To display the value of the slider
+			$(document).on('input', '#myRange', function() {
+			    $('#slider_value').html( $(this).val() );
+			});
+
 		</script>
 	</head>
 	<body>
 
 		<div class="ml-container">
 		<h3>Welcome! Please use the box below to generate your yelp review!</h3>
+			<form name="complexity">
+				<p>Please adjust the complexity of the predictive model here: </p>
+			   	<input type="range" id="sliderInput" value="0.7" min="0.1" max="1" oninput="sliderOutput.value = sliderInput.value" step = "0.1" name = "slider">
+			   	<output id="sliderOutput">0.7</output>
+			</form>
+			
 			<form>
-				<textarea class="scrollabletextbox" name="message">
-				</textarea>
+				<p>Please start typing your review here: </p>				
+				<textarea class="scrollabletextbox" name="message"></textarea>
 				<a href=# id=process_input><button class='btn btn-default' onclick="myFunction()">Submit</button></a>
 			</form>
 		</div>
 		<div id = 'model-output'>
 		<button id=result1 onclick="selectOutput1()"></button> <br>
-		<button id=result2></button> <br>
-		<button id=result3></button>
+		<button id=result2 onclick="selectOutput2()"></button> <br>
+		<button id=result3 onclick="selectOutput3()"></button>
 		</div>
 
 	</body>
@@ -99,6 +112,5 @@
 <style>
 textarea {height:100px;width:500px;font-size:14pt;}
 h1   {color: blue;}
-p    {color: blue;}
 #model-output {display : none;}
 </style>

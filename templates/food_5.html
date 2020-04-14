@@ -19,11 +19,11 @@
 				<li class="dropdown">
 	          		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Generators <span class="caret"></span></a>
 	          		<ul class="dropdown-menu">
-	            		<li><a href="#">1 Star Food Review</a></li>
-	            		<li><a href="#">5 Star Food Review</a></li>
+	            		<li><a href="/food_1_star">1 Star Food Review</a></li>
+	            		<li><a href="/food_5_star">5 Star Food Review</a></li>
 	            		<li role="separator" class="divider"></li>
-	            		<li><a href="#">1 Star General Review</a></li>
-	            		<li><a href="#">5 Star General Review</a></li>
+	            		<li><a href="/general_1_star">1 Star General Review</a></li>
+	            		<li><a href="/general_5_star">5 Star General Review</a></li>
 	          		</ul>
 	        	</li>
           	</ul>
@@ -34,7 +34,7 @@
 
 {% block content %}	
 <div class="container">
-  	<h3>Welcome! Please use the box below to generate your yelp review!</h3>
+  	<h3>This is the 5 star food review generator!</h3>
 	<div class = "row">
 		<div class="col col-lg-6">
 			<form>
@@ -68,7 +68,7 @@
 <script type=text/javascript>
 	$(function() {
 	  $('a#process_input').bind('click', function() {
-		$.getJSON('/background_process', {
+		$.getJSON('/food_5', {
 		  message: $('textarea[name="message"]').val(),
 		  complexity: $('input[name="slider"]').val(),
 		}, function(data) {
@@ -152,5 +152,7 @@
 	textarea {height:100px;width:500px;font-size:14pt;}
 	#sliderInput {width:500px;}
 	#model-output {display : none;}
+	.navbar-default{
+}
 </style>
 {% endblock %}
